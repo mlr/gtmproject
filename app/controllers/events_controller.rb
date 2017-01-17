@@ -47,7 +47,9 @@ class EventsController < ApplicationController
 
     def limit_value
       begin
-        Integer(params.permit(:latest)[:latest])
+        limit = Integer(params.permit(:latest)[:latest])
+        limit = nil if limit < 0
+        limit
       rescue TypeError, ArgumentError
         nil
       end

@@ -43,6 +43,14 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 6, response.count
   end
 
+  test "should get all events if a negative limit value is given" do
+    5.times { create(:event, organization: @organization, message: "foo") }
+    get organization_events_url(@organization, latest: -1), as: :json
+    assert_response :success
+    response = JSON.parse(@response.body)
+    assert_equal 6, response.count
+  end
+
   test "should get events for an organization filtered by hostname" do
     Event.destroy_all
     create(:event, organization: @organization, message: "foo", hostname: "foobarbaz.com")
