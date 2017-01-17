@@ -111,5 +111,5 @@ curl -v -H 'Content-Type: application/json' \
 
 ```
 curl -v -H 'Content-Type: application/json' \
-  'http://localhost:3000/organizations/myorg/events?hostname=example.com'
+  'http://localhost:3000/organizations/myorg/events?latest=5&hostname=example.com'
 ```
