@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117002024) do
+ActiveRecord::Schema.define(version: 20170117010756) do
+
+  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "organization_id"
+    t.string   "message"
+    t.string   "hostname"
+    t.datetime "timestamp"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["organization_id"], name: "index_events_on_organization_id", using: :btree
+  end
 
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -21,4 +31,5 @@ ActiveRecord::Schema.define(version: 20170117002024) do
     t.index ["slug"], name: "index_organizations_on_slug", unique: true, using: :btree
   end
 
+  add_foreign_key "events", "organizations", on_delete: :cascade
 end

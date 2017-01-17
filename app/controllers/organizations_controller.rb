@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
   def index
-    @organizations = Organization.all
+    @organizations = Organization.order(:created_at)
 
     render json: @organizations
   end

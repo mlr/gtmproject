@@ -50,3 +50,31 @@ curl -v -H 'Content-Type: application/json' \
 
 curl -v -H 'Content-Type: application/json' -XDELETE \
   'http://localhost:3000/organizations/myorg'
+
+## Events
+
+### Create Event
+
+curl -v -H 'Content-Type: application/json' -XPOST \
+  -d '{ "event": { "message": "Hello!", "hostname": "example.com", "timestamp": "2017-01-16 12:24:48" } }' \
+  'http://localhost:3000/organizations/myorg/events'
+
+### List all Events for all Organizations
+
+curl -v -H 'Content-Type: application/json' \
+  'http://localhost:3000/events'
+
+### List all Events for specific Organization
+
+curl -v -H 'Content-Type: application/json' \
+  'http://localhost:3000/organizations/myorg/events'
+
+### List the last N events for an Organization
+
+curl -v -H 'Content-Type: application/json' \
+  'http://localhost:3000/organizations/myorg/events?latest=5'
+
+### List the last N events for an Organization with a specific hostname
+
+curl -v -H 'Content-Type: application/json' \
+  'http://localhost:3000/organizations/myorg/events?hostname=example.com'
