@@ -63,6 +63,18 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_equal ["bar", "baz"], response.map { |e| e['message'] }
   end
 
+  test "should get latest number of events specified for an organization filtered by hostname" do
+    Event.destroy_all
+    create(:event, organization: @organization, message: "foo", hostname: "foobarbaz.com")
+    create(:event, organization: @organization, message: "bar", hostname: "website.com")
+    create(:event, organization: @organization, message: "baz", hostname: "website.com")
+
+    get organization_events_url(@organization, latest: 1, hostname: "website.com"), as: :json
+    assert_response :success
+    response = JSON.parse(@response.body)
+    assert_equal ["bar"], response.map { |e| e['message'] }
+  end
+
   test "should create event" do
     assert_difference('Event.count') do
       post organization_events_url(@organization),
