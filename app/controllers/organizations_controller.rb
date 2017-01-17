@@ -16,7 +16,7 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
-    @organization = Organization.find_by!(slug: params[:id])
+    @organization = Organization.find_by!(slug: params[:slug])
     @organization.destroy
   end
 

@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   def index
     @events = Event.order("created_at DESC")
 
-    if organization_id
+    if organization_slug
       @events = @events.where(organization: @organization)
     end
 
@@ -33,12 +33,12 @@ class EventsController < ApplicationController
 
   private
 
-    def organization_id
-      params[:organization_id]
+    def organization_slug
+      params[:organization_slug]
     end
 
     def set_organization
-      @organization = Organization.find_by(slug: organization_id)
+      @organization = Organization.find_by(slug: organization_slug)
     end
 
     def event_params
