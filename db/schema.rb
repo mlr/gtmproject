@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20170117010756) do
 
-  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
     t.integer  "organization_id"
     t.string   "message"
     t.string   "hostname"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170117010756) do
     t.index ["organization_id"], name: "index_events_on_organization_id", using: :btree
   end
 
-  create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "organizations", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
     t.datetime "created_at", null: false
