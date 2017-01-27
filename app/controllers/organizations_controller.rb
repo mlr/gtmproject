@@ -1,4 +1,6 @@
 class OrganizationsController < ApplicationController
+  include ActionController::MimeResponds
+
   def index
     @organizations = Organization.order(:created_at)
 
@@ -18,6 +20,10 @@ class OrganizationsController < ApplicationController
   def destroy
     @organization = Organization.find_by!(slug: params[:slug])
     @organization.destroy
+  end
+
+  def foreign_hosts
+    @organizations = Organization.with_foreign_hostname
   end
 
   private
