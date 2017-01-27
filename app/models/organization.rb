@@ -10,6 +10,17 @@ class Organization < ApplicationRecord
     slug
   end
 
+  NATIVE_HOSTNAMES = ["com", "net", "edu", "gov"].freeze
+
+  def self.with_foreign_hostname
+    query = NATIVE_HOSTNAMES.inject([]) do |parts, tld|
+      parts << "hostname LIKE '%.#{tld}'"
+      parts
+    end.join(" OR ")
+
+    joins(:events).where.not(query)
+  end
+
   private
 
     def set_slug
