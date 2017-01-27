@@ -12,20 +12,16 @@ This project uses Ruby version 2.3.0 and Rails version 5.0.1.
 
 ## System dependencies
 
-This project requires a MySql database. See below for setup instructions. If you don't already have mysql installed, you'll need to install that before proceeding.
+This project requires a PostgreSQL database. See below for setup instructions.
+If you don't already have PostgreSQL installed, you'll need to install that before proceeding.
 
 ## Database creation
 
 You'll need to create a database for this project.
 
+Modify the `config/database.yml` to use the username for your system.
+
 `bundle exec rails db:setup`
-
-If you want to use different credentials than the default
-`root` username that Rails' assumes for new projects then
-modify the `config/database.yml` file to suit your needs.
-
-I didn't create a new user for this project, but typically would
-for longer-lived development projects.
 
 ## Database initialization
 
@@ -112,4 +108,10 @@ curl -v -H 'Content-Type: application/json' \
 ```
 curl -v -H 'Content-Type: application/json' \
   'http://localhost:3000/organizations/myorg/events?latest=5&hostname=example.com'
+```
+
+### Display organizations with "foreign hostname" events, visit:
+
+```
+http://localhost:3000/organizations/foreign_hosts
 ```
